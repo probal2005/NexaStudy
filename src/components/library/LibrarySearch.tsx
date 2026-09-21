@@ -1,0 +1,41 @@
+'use client';
+
+import { Search, X } from 'lucide-react';
+import { Input } from '@/components/ui/Input';
+
+interface LibrarySearchProps {
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+}
+
+export function LibrarySearch({
+  value,
+  onChange,
+  placeholder = 'Search books, authors, subjects...',
+}: LibrarySearchProps) {
+  return (
+    <div className="relative">
+      <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+
+      <Input
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        placeholder={placeholder}
+        className="pl-9 pr-10"
+        aria-label="Search library"
+      />
+
+      {value && (
+        <button
+          type="button"
+          onClick={() => onChange('')}
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground transition hover:text-foreground"
+          aria-label="Clear search"
+        >
+          <X className="h-4 w-4" />
+        </button>
+      )}
+    </div>
+  );
+}
